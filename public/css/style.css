@@ -1,0 +1,10 @@
+.dataTable tr {
+  cursor: pointer; }
+.dataTable tr:hover {
+  background: #d2d6de !important; }
+
+table td {
+  word-wrap: break-word;
+  word-break: break-all; }
+
+/*# sourceMappingURL=style.css.map */

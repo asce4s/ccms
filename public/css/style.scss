@@ -1,0 +1,14 @@
+.dataTable{
+  tr{
+    cursor: pointer;
+  }
+  tr:hover{
+    background:#d2d6de !important;
+  }
+}
+
+table td{
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
