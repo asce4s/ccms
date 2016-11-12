@@ -43,10 +43,11 @@
                             <?php $c++; ?>
                         @endforeach
 
-                        <td style="width: 136px;"><a href="{{url($url)}}/{{$i->id}}" class="btn btn-xs btn-info"
+                        <td style="width: 136px;" id="cell{{$i->id}}"><a href="{{url($url)}}/{{$i->id}}" class="btn btn-xs btn-info"
                                                      style="margin-right: 5px">View</a><a
                                     href="{{url($url)}}/{{$i->id}}/edit" class="btn btn-xs btn-primary"
-                                    style="margin-right: 5px">Edit</a><a href="{{url($url)}}"
+                                    style="margin-right: 5px">Edit</a><a href="#" ng-click="delete('{{url($url)}}/{{$i->id}}',{{$i->id}})"
+                                                                         confirm="Are you sure ?" confirm-settings="{size: 'sm',ok:'Yes'}"
                                                                          class="btn btn-xs btn-danger">Delete</a></td>
                     </tr>
                 @endforeach
@@ -81,6 +82,22 @@
                 console.log($scope.modelLabels);
                 console.log($scope.modelData);
 
+            }
+
+
+            $scope.delete = function (url,id) {
+                $http({
+                    method: "delete",
+                    url:  url,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                }).then(function (response) {
+                    console.log(response.data);
+                    angular.element('#cell'+id).parent().remove();
+
+                }, function (response) {
+
+                });
+                $scope.formProgress=false;
             }
 
         })

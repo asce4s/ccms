@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Booking;
+use App\Sale;
 use App\Schedule;
 use Carbon\Carbon;
 use Doctrine\DBAL\Query\QueryException;
@@ -131,7 +132,7 @@ class BookingController extends Controller
                 ->join('schedule', 'schedule.id', 'booking.schedule_id')
                 ->join('doctor', 'doctor.id', 'schedule.doc_id')
                 ->join('employee', 'employee.id', 'doctor.emp_id')
-                ->select('booking.name', 'booking.phone', 'booking.nic', 'employee.name as doc', 'fromTime', 'toTime', 'token')
+                ->select('booking.name', 'booking.phone', 'booking.nic', 'employee.name as doc', 'fromTime', 'toTime', 'token','sale_id','booking.id','schedule.fee')
                 ->where('date', '=', $date)
                 ->get();
 
@@ -160,19 +161,34 @@ class BookingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $bk = Booking::find($id);
-        $bk->name = $request->get('name');
-        $bk->nic = $request->get('nic');
-        $bk->schedule_id = $request->get('schedule_id');
-        $bk->phone = $request->get('phone');
-        $bk->date = $request->get('date');
-        $bk->save();
-        $res = array();
-        $res["msg"] = "Booking Added";
-        $res["class"] = "alert-success";
-        $res["stat"] = true;
 
-        return json_encode($res);
+        if(!isset($_GET["pay"])) {
+            $bk = Booking::find($id);
+            $bk->name = $request->get('name');
+            $bk->nic = $request->get('nic');
+            $bk->schedule_id = $request->get('schedule_id');
+            $bk->phone = $request->get('phone');
+            $bk->date = $request->get('date');
+            $bk->save();
+            $res = array();
+            $res["msg"] = "Booking Added";
+            $res["class"] = "alert-success";
+            $res["stat"] = true;
+
+            return json_encode($res);
+        }else{
+            $sale = new Sale();
+            $sale->section = "Channeling";
+            $sale->price = $request->get('fee');
+            $sale->save();
+
+            $bk = Booking::find($id);
+            $bk->sale_id=$sale->id;
+            $bk->save();
+
+            return "true";
+
+        }
     }
 
     /**

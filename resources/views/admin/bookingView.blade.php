@@ -71,6 +71,8 @@
                             <th>Doctor</th>
                             <th>From</th>
                             <th>To</th>
+                            <th>Fee</th>
+                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -83,6 +85,16 @@
                                 <td>{{$i->doc}}</td>
                                 <td>{{$i->fromTime}}</td>
                                 <td>{{$i->toTime}}</td>
+                                <td>{{$i->fee}}</td>
+                                <td>
+                                    @if(empty($i->sale_id))
+                                        <a href="" class="btn btn-xs btn-danger" confirm="Are you sure ?" confirm-settings="{size: 'sm',ok:'Yes'}" id="bk{{$i->id}}" ng-click="pay({{$i->id}},{{$i->fee}})">Pay</a>
+                                    @else
+                                        <a href="#" class="btn btn-xs btn-success">Paid</a>
+                                    @endif
+
+                                </td>
+
 
                             </tr>
 
@@ -102,96 +114,36 @@
                 <!-- /.box-body -->
             </div>
 
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Sale #@{{ saleID }}</h4>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <td>Qty</td>
-                                    <td>Name</td>
-                                    <td>Brand</td>
-                                    <td>Price</td>
-                                    <td>Subtotal</td>
-                                    <td print-remove></td>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                <tr ng-repeat="i in saleData">
-
-                                    <td>@{{ i.qty }}</td>
-                                    <td>@{{ i.name }}</td>
-                                    <td>@{{ i.brand }}</td>
-                                    <td>Rs. @{{ i.price }}</td>
-                                    <td>Rs. @{{ i.price * i.qty }}</td>
-
-                                </tr>
-
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <td colspan="4"><h4 style="text-align: right">Total</h4></td>
-                                    <td><h4>Rs. @{{total}}</h4></td>
-                                    <td print-remove></td>
-
-                                </tr>
-
-
-                                </tfoot>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Get Invoice</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
 
 
         app.controller('saleController', function ($scope, $http, $controller, SweetAlert) {
 
-            $controller('masterController', {$scope: $scope});
-            $scope.baseUrl = '{{url('drug')}}';
+            $scope.baseUrl = '{{url('booking')}}';
 
-            $scope.saleData = {};
-            $scope.saleID = null;
-            $scope.total = 0.00;
-            $scope.saleView = function (id, total) {
-                $scope.saleID = id;
-                $scope.total = total;
+            $scope.pay=function (id,fee) {
+
                 $http({
-                    method: "get",
-                    url: $scope.baseUrl + "/getsale?id=" + id,
+                    method: "put",
+                    url: $scope.baseUrl+"/"+id+"?pay=true",
+                    data: $.param({fee:fee}),
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).then(function (response) {
-
-                    $scope.saleData = response.data;
-                    console.log(response.data);
-
-                    //angular.element('body').html(response.data);
+                    if(response.data){
+                        var ee=angular.element("#bk"+id);
+                        ee.html("paid");
+                        ee.removeClass("btn-danger");
+                        ee.addClass("btn-success");
+                        ee.removeAttr("confirm");
+                        ee.removeAttr("confirm-settings");
+                        ee.removeAttr("ng-click");
+                        ee.addClass("cevent");
+                    }
 
                 }, function (response) {
 
-                    $scope.status = {
-                        msg: "Error..Contact System Administrator ",
-                        class: "alert-danger",
-                        stat: true
-                    }
                 });
-
             }
 
         });

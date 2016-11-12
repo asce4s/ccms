@@ -54,7 +54,7 @@ class HistoryController extends Controller
         $h=new History();
         $h->patient_id=$request->get('patient_id');
         $h->doc_id=$doc_id;
-        $h->date=Carbon::now()->toDateString();
+        $h->date=$request->get('date');
         $h->prescription=$request->get('prescription');
         $h->note=$request->get('note');
         $h->save();
@@ -149,6 +149,7 @@ class HistoryController extends Controller
         $h=History::findorfail($id);
         $h->patient_id=$request->get('patient_id');
         $h->prescription=$request->get('prescription');
+        $h->date=$request->get('date');
         $h->note=$request->get('note');
         $h->save();
 

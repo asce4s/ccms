@@ -7,4 +7,7 @@ table td {
   word-wrap: break-word;
   word-break: break-all; }
 
+.cevent {
+  pointer-events: none; }
+
 /*# sourceMappingURL=style.css.map */

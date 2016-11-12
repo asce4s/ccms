@@ -6,7 +6,6 @@
 @section('scripts')
 
     <script src="{{ URL::asset('plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ URL::asset('plugins/input-mask/jquery.inputmask.js') }}"></script>
 
 
 
@@ -19,7 +18,7 @@
                 format: "yyyy-mm-dd"
             });
 
-            $("[data-mask]").inputmask();
+            $("#datepicker").datepicker("setDate", new Date());
         })
     </script>
 @stop
@@ -54,10 +53,20 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label>Patient</label>
-                            <input type="text" class="form-control" ng-model="data.patient_id" name="patient_id" required disabled
+                            <input type="text" class="form-control" ng-model="nme" name="patient_name" required disabled
                                    placeholder="Select from the table">
+                            <input type="hidden" class="form-control" ng-model="data.patient_id" name="patient_id" required >
                         </div>
 
+                        <div class="form-group">
+                            <label>Date</label>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker" ng-model="data.date" name="date">
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label>Prescription</label>
@@ -65,7 +74,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Note</label>
+                            <label>Notes</label>
                             <textarea class="form-control" ng-model="data.note" name="note" required></textarea>
                         </div>
 
@@ -108,7 +117,7 @@
                             </thead>
                             <tbody>
                             @foreach($patients as $i)
-                                <tr ng-click="rowClick({{$i->id}})">
+                                <tr ng-click="rowClick({{$i->id}},'{{$i->name}}')">
                                     <td>{{$i->id}}</td>
                                     <td>{{$i->name}}</td>
                                     <td>{{$i->nic}}</td>
@@ -133,7 +142,7 @@
             $scope.baseUrl = '{{url('history')}}';
             $scope.data = {};
 
-
+            $scope.nme="";
             $scope.tableData = null;
             $scope.show = false;
             $scope.showReset = true;
@@ -219,7 +228,8 @@
                 $scope.formProgress = false;
             }
 
-            $scope.rowClick = function (id) {
+            $scope.rowClick = function (id,name) {
+                $scope.nme = name;
                 $scope.data.patient_id = id;
 
             }

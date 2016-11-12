@@ -8,7 +8,8 @@
     <script src="{{ URL::asset('plugins/datepicker/bootstrap-datepicker.js') }}"></script>
     <script src="{{ URL::asset('plugins/input-mask/jquery.inputmask.js') }}"></script>
 
-
+    <script src="{{ URL::asset('js/jquery.base64.js') }}"></script>
+    <script src="{{ URL::asset('js/tableExport.js') }}"></script>
 
 
     <script>
@@ -45,7 +46,8 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right datepicker" name="from" value="<?php echo isset( $_GET["from"])? $_GET["from"]:""; ?>">
+                                <input type="text" class="form-control pull-right datepicker" name="from"
+                                       value="<?php echo isset($_GET["from"]) ? $_GET["from"] : ""; ?>">
                             </div>
                         </div>
 
@@ -55,7 +57,8 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right datepicker" name="to" value="<?php echo isset( $_GET["to"])? $_GET["to"]:""; ?>" >
+                                <input type="text" class="form-control pull-right datepicker" name="to"
+                                       value="<?php echo isset($_GET["to"]) ? $_GET["to"] : ""; ?>">
                             </div>
                         </div>
 
@@ -64,13 +67,16 @@
                             <button type="submit" class="btn btn-primary" style="margin-top: 24px;">View</button>
 
                         </div>
+                        <div class="col-md-3">
+                            <button ng-click="export()" class="btn btn-default" style="float: right;    margin-top: 20px;">Download Report </button>
+                        </div>
                     </form>
 
 
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table datatable class="table table-bordered table-striped">
+                    <table datatable class="table table-bordered table-striped" id="statTable">
                         <thead>
                         <tr>
                             <th>#ID</th>
@@ -109,11 +115,13 @@
 
 
                     </table>
+
                 </div>
                 <!-- /.box-body -->
             </div>
 
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"  print-section>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 print-section>
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -159,7 +167,7 @@
                                 </tfoot>
                             </table>
                         </div>
-                        <div class="modal-footer"  print-remove>
+                        <div class="modal-footer" print-remove>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary" ng-click="print()">Get Invoice</button>
                         </div>
@@ -204,12 +212,20 @@
                 });
 
             }
-            $scope.print=function () {
+            $scope.print = function () {
                 window.print();
+            }
+
+            $scope.export=function () {
+                angular.element("#statTable").tableExport({type:'excel',escape:'false',ignoreColumn:'[3]'});
             }
 
 
         });
+
+
+
+
 
 
     </script>
