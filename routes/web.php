@@ -12,9 +12,7 @@
 */
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','WebController@index');
 
 Route::get('/init','InitController@init');
 
