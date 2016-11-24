@@ -2,6 +2,12 @@
 @section('styles')
 
     <link rel="stylesheet" href="{{ URL::asset('plugins/datepicker/datepicker3.css') }}">
+    <style>
+        .datepicker table tr td.disabled, .datepicker table tr td.disabled:hover {
+            color: #ccc;
+
+        }
+    </style>
 @stop
 @section('scripts')
 
@@ -14,15 +20,11 @@
     <script>
         $(function () {
 
-            $('#datepicker').datepicker({
-                autoclose: true,
-                format: "yyyy-mm-dd"
-            });
 
             $("[data-mask]").inputmask();
 
             var input = document.getElementById('nic');
-            input.oninvalid = function(event) {
+            input.oninvalid = function (event) {
                 event.target.setCustomValidity('NIC should be in the correct format. E.g 982695032V');
             }
         })
@@ -62,21 +64,24 @@
 
                         <div class="form-group">
                             <label>NIC</label>
-                            <input type="text" id="nic" class="form-control" ng-model="data.nic" required pattern="^[0-9]{9}[vVxX]$" name="nic">
+                            <input type="text" id="nic" class="form-control" ng-model="data.nic" required
+                                   pattern="^[0-9]{9}[vVxX]$" name="nic">
                         </div>
 
                         <div class="form-group">
                             <label>Schedule ID</label>
-                            <input type="text" class="form-control" ng-model="data.schedule_id" name="schedule_id" required disabled placeholder="Select schedule from the table">
+                            <input type="text" class="form-control" ng-model="data.schedule_id" name="schedule_id"
+                                   required disabled placeholder="Select schedule from the table">
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" >
                             <label>Date</label>
                             <div class="input-group date">
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="datepicker" ng-model="data.date" name="date">
+                                <input type="text" class="form-control pull-right" id="datepicker" ng-model="data.date"
+                                       name="date" disabled>
                             </div>
                         </div>
 
@@ -90,13 +95,14 @@
 
 
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary" ng-click="frm.$valid && add()" ng-if="!show">Add</button>
+                        <button type="submit" class="btn btn-primary" ng-click="frm.$valid && add()" ng-if="!show">Add
+                        </button>
                         <button type="submit" class="btn btn-primary" ng-click="update()" ng-if="show">Update
                         </button>
                         <button type="submit" class="btn btn-primary" ng-click="delete()" ng-if="show"
                                 confirm="Are you sure ?" confirm-settings="{size: 'sm',ok:'Yes'}">Delete
                         </button>
-                        <button type="reset" class="btn btn-primary" ng-click="show = false">Reset</button>
+                        <button type="reset" class="btn btn-primary" ng-click="show = false;reset()">Reset</button>
                     </div>
                 </form>
             </div>
@@ -123,7 +129,7 @@
                             </thead>
                             <tbody>
                             @foreach($sc as $i)
-                                <tr ng-click="rowClick({{$i->id}})">
+                                <tr ng-click="rowClick({{$i->id}},'{{$i->weekday}}')">
                                     <td>{{$i->id}}</td>
                                     <td>{{$i->doctor->name}}</td>
                                     <td>{{$i->weekday}}</td>
@@ -228,8 +234,32 @@
                 $scope.formProgress = false;
             }
 
-            $scope.rowClick=function (id) {
-                $scope.data.schedule_id=id;
+            $scope.rowClick = function (id,weekday) {
+                var dy;
+                switch(weekday){
+                    case "Sunday":dy=[1,2,3,4,5,6];break;
+                    case "Monday":dy=[0,2,3,4,5,6];break;
+                    case "Tuesday":dy=[0,1,3,4,5,6];break;
+                    case "Wednesday":dy=[0,1,2,4,5,6];break;
+                    case "Thursday":dy=[0,1,2,3,5,6];break;
+                    case "Friday":dy=[0,1,2,3,4,6];break;
+                    case "Saturday":dy=[0,1,2,3,4,5];break;
+
+                }
+                $scope.showdate=true;
+                $scope.data.schedule_id = id;
+                angular.element('#datepicker').datepicker('remove');
+                angular.element('#datepicker').datepicker({
+                    autoclose: true,
+                    format: "yyyy-mm-dd",
+                    daysOfWeekDisabled: dy
+                });
+
+                angular.element('#datepicker').removeAttr("disabled");
+            }
+
+            $scope.reset=function () {
+                angular.element('#datepicker').attr("disabled","disabled");
 
             }
 

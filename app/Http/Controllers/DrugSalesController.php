@@ -21,6 +21,7 @@ class DrugSalesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware(['role:phm|admin|acc']);
     }
 
     public function index()

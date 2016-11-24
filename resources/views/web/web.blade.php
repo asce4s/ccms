@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Medicio landing page template for Health niche</title>
+    <title>Osula Medicare</title>
 
     <!-- css -->
     <link href="{{ URL::asset('web/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">

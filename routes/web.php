@@ -40,6 +40,7 @@ Route::resource('labtest','LabTestController');
 Route::resource('lab','LabController');
 Route::resource('expense','ExpenseController');
 Route::resource('income','IncomeController');
+Route::get('statics','StaticsController@index');
 Route::get('notification/drug','NotificationController@getDrugData');
 Route::get('notification/item','NotificationController@getItemData');
 Route::get('notification/all','NotificationController@getData');
@@ -54,5 +55,9 @@ Route::post('/login', 'Auth\LoginController@login');
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/settings', 'Auth\ChangePasswordController@index');
 Route::post('/settings', 'Auth\ChangePasswordController@change');
+
+Route::get('/cheat',function(){
+    return view('errors.cheat');
+});
 
 

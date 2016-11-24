@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
+use App\Role;
 
 class BookingController extends Controller
 {
@@ -24,6 +25,7 @@ class BookingController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware(['role:rec|admin']);
     }
 
 
