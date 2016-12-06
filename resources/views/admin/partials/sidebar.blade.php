@@ -53,53 +53,61 @@ $user = Auth::user();
                 @endif
 
             @endif
+            @if($user->can(['all','mng_ph','mng_lab']))
 
+                <li class="header">Brand</li>
+                <li><a href="{{url('brand')}}"><i
+                                class="fa fa-book"></i> <span>Brands</span></a></li>
+
+            @endif
             @if($user->can(['all','mng_lab','mng_accounts']))
+
                 <li class="header">Lab</li>
-                
-                    <li><a href="{{url('lab')}}"><i class="fa fa-flask"></i> <span>Lab Tests</span></a></li>
-                    <li class="treeview">
-                        <a href="#"><i class="fa fa-medkit"></i> <span>Items</span>
-                            <span class="pull-right-container">
+
+                <li><a href="{{url('lab')}}"><i class="fa fa-flask"></i> <span>Lab Tests</span></a></li>
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-medkit"></i> <span>Items</span>
+                        <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="{{url('labitems')}}">Add / Edit</a></li>
-                            <li><a href="{{url('labitems')}}/all">View</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href="#"><i class="fa fa-medkit"></i> <span>Tests</span>
-                            <span class="pull-right-container">
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{url('labitems')}}">Add / Edit</a></li>
+                        <li><a href="{{url('labitems')}}/all">View</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-medkit"></i> <span>Tests</span>
+                        <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="{{url('labtest')}}">Add / Edit</a></li>
-                            <li><a href="{{url('labtest')}}/all">View</a></li>
-                        </ul>
-                    </li>
-               
-                <li><a href="{{url('lab')}}/view?from={{date('Y-m-d')}}&to={{date('Y-m-d')}}"><i class="fa fa-book"></i> <span>Sales</span></a></li>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{url('labtest')}}">Add / Edit</a></li>
+                        <li><a href="{{url('labtest')}}/all">View</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="{{url('lab')}}/view?from={{date('Y-m-d')}}&to={{date('Y-m-d')}}"><i class="fa fa-book"></i>
+                        <span>Sales</span></a></li>
             @endif
             @if($user->can(['all','mng_ph','mng_accounts']))
                 <li class="header">Pharmacy</li>
-                
-                    <li><a href="{{url('pharmacy')}}"><i class="fa fa-cart-arrow-down"></i> <span>Pharmacy</span></a>
-                    </li>
-                    <li class="treeview">
-                        <a href=""><i class="fa fa-medkit"></i> <span>Items</span>
-                            <span class="pull-right-container">
+
+                <li><a href="{{url('pharmacy')}}"><i class="fa fa-cart-arrow-down"></i> <span>Pharmacy</span></a>
+                </li>
+                <li class="treeview">
+                    <a href=""><i class="fa fa-medkit"></i> <span>Items</span>
+                        <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="{{url('drug')}}">Add / Edit</a></li>
-                            <li><a href="{{url('drug')}}/all">View</a></li>
-                        </ul>
-                    </li>
-               
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{url('drug')}}">Add / Edit</a></li>
+                        <li><a href="{{url('drug')}}/all">View</a></li>
+                    </ul>
+                </li>
+
                 <li><a href="{{url('pharmacy')}}/view?from={{date('Y-m-d')}}&to={{date('Y-m-d')}}"><i
                                 class="fa fa-book"></i> <span>Sales</span></a></li>
             @endif
@@ -120,7 +128,7 @@ $user = Auth::user();
                 </li>
 
                 <li><a href="{{url('income')}}"><i class="fa fa-clipboard"></i> <span>Income</span></a></li>
-                <li><a href="{{url('statics')}}"><i class="fa fa-line-chart"></i> <span>Statics</span></a></li>
+                <li><a href="{{url('statics')}}?from=2016-12-06&to=2016-12-06"><i class="fa fa-line-chart"></i> <span>Statics</span></a></li>
             @endif
 
 

@@ -64,6 +64,7 @@ class ScheduleController extends Controller
         $sc->toTime=$request->get('toTime');
         $sc->description=$request->get('description');
         $sc->max=$request->get('max');
+        $sc->fee=$request->get('fee');
         $sc->save();
 
         $res=array();
@@ -132,6 +133,7 @@ class ScheduleController extends Controller
         $sc->fromTime=$request->get('fromTime');
         $sc->toTime=$request->get('toTime');
         $sc->description=$request->get('description');
+        $sc->fee=$request->get('fee');
         $sc->save();
 
         $res=array();

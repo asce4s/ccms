@@ -61,7 +61,7 @@
 
                             <div class="input-group">
                                 <span class="input-group-addon">Rs</span>
-                                <input type="float" class="form-control" ng-model="data.cost" name="cost" required>
+                                <input type="number" step="0.01" min="0" class="form-control" ng-model="data.cost" name="cost" required>
                             </div>
 
                         </div>

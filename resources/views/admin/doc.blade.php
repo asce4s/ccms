@@ -61,7 +61,7 @@
                         </div>
                         <div class="form-group">
                             <label>Phone</label>
-                            <input type="phone" class="form-control" ng-model="data.phone" name="phone" required data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                            <input type="phone" pattern=".[^_]{13}" class="form-control" ng-model="data.phone" name="phone" required data-inputmask='"mask": "(999) 999-9999"' data-mask>
                         </div>
                         <div class="form-group">
                             <label>Email</label>

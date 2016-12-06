@@ -23,7 +23,7 @@ class BrandController extends Controller
 
     public function index()
     {
-        //
+        return view("admin.brand");
     }
 
     /**
@@ -64,10 +64,10 @@ class BrandController extends Controller
      */
     public function show($id)
     {
-        if ($id == 'table') {
+        //if ($id == 'table') {
             $brand = \DB::table('brand')->get();
             return json_encode($brand);
-        }
+        //}
     }
 
     /**
@@ -78,7 +78,7 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -90,7 +90,16 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $brand=Brand::find($id);
+        $brand->name=$request->get('name');
+        $brand->save();
+
+        $res=array();
+        $res["msg"]="Brand Updated";
+        $res["class"]="alert-success";
+        $res["stat"]=true;
+
+        return json_encode($res);
     }
 
     /**
@@ -101,6 +110,13 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
+        $brand=Brand::find($id);
+        $brand->delete();
+        $res=array();
+        $res["msg"]="Brand Deleted";
+        $res["class"]="alert-success";
+        $res["stat"]=true;
 
+        return json_encode($res);
     }
 }

@@ -108,6 +108,16 @@
                            <input type="number" class="form-control" ng-model="data.max" name="max">
                         </div>
 
+                        <div class="form-group">
+                            <label>Fee</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon">Rs</span>
+                                <input type="number" step="0.01" min="0" class="form-control" ng-model="data.fee" name="fee" required>
+                            </div>
+
+                        </div>
+
 
 
 

@@ -27,6 +27,8 @@
             input.oninvalid = function (event) {
                 event.target.setCustomValidity('NIC should be in the correct format. E.g 982695032V');
             }
+
+
         })
     </script>
 @stop
@@ -70,8 +72,8 @@
 
                         <div class="form-group">
                             <label>Schedule ID</label>
-                            <input type="text" class="form-control" ng-model="data.schedule_id" name="schedule_id"
-                                   required disabled placeholder="Select schedule from the table">
+                            <input type="text" class="form-control disabled" ng-model="data.schedule_id" name="schedule_id"
+                                required     placeholder="Select schedule from the table">
                         </div>
 
                         <div class="form-group" >
@@ -81,14 +83,14 @@
                                     <i class="fa fa-calendar"></i>
                                 </div>
                                 <input type="text" class="form-control pull-right" id="datepicker" ng-model="data.date"
-                                       name="date" disabled>
+                                      disabled required name="date" >
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label>Phone</label>
                             <input type="phone" class="form-control" ng-model="data.phone" name="phone" required
-                                   data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                                   data-inputmask='"mask": "(999) 999-9999"' data-mask pattern=".[^_]{13}">
                         </div>
 
                     </div>
@@ -168,6 +170,7 @@
             $scope.titletxt = "Add";
 
             $scope.add = function () {
+
                 $scope.formProgress = true;
                 $http({
                     method: "post",

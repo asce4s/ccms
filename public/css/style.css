@@ -10,4 +10,9 @@ table td {
 .cevent {
   pointer-events: none; }
 
+.disabled {
+  background-color: #eee;
+  opacity: 1;
+  pointer-events: none; }
+
 /*# sourceMappingURL=style.css.map */
