@@ -91,7 +91,7 @@
                     url:  url,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).then(function (response) {
-                    console.log(response.data);
+                    console.log("xxx"+response.data);
                     angular.element('#cell'+id).parent().remove();
 
                 }, function (response) {

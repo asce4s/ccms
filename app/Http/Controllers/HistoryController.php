@@ -80,20 +80,46 @@ class HistoryController extends Controller
     {
         $cols=array("ID","Name","Date","Prescription","Note");
         if($id=='all'){
+
+
+           $docid=Doctor::where('emp_id',Auth::user()->emp_id)->first()->id;
             $data = \DB::table('medicalhistory')
                 ->join('patient','medicalhistory.patient_id','=','patient.id')
-                ->select('medicalhistory.id','patient.name' ,'date','prescription','note')
-                ->where('doc_id',$doc_id=Doctor::where('emp_id',Auth::user()->emp_id)->first()->id)
+                ->select('medicalhistory.id as id','patient.name' ,'date','prescription','note')
+                ->where('doc_id',$docid)
                 ->get();
+            //->toSql();
 
+            //return $data;
 
             return view('admin.view')
                 ->with('data',$data)
                 ->with('cols',$cols)
                 ->with('title','Medical Records')
                 ->with('url','history');
-        }else{
+        }else if (strpos($id, 'patient=') !== false) {
+
+            $pid=explode("=",$id)[1];
+
+            $docid=Doctor::where('emp_id',Auth::user()->emp_id)->first()->id;
             $data = \DB::table('medicalhistory')
+                ->join('patient','medicalhistory.patient_id','=','patient.id')
+                ->select('medicalhistory.id as id','patient.name' ,'date','prescription','note')
+                ->where('doc_id',$docid)
+                ->where('patient.id',$pid)
+                ->get();
+
+
+
+            return view('admin.view')
+                ->with('data',$data)
+                ->with('cols',$cols)
+                ->with('title','Medical Records of '.$data[0]->name)
+                ->with('url','history');
+        }else{
+
+
+           $data = \DB::table('medicalhistory')
                 ->join('patient','medicalhistory.patient_id','=','patient.id')
                 ->select('medicalhistory.id','patient.name' ,'date','prescription','note')
                 ->where('medicalhistory.id',$id)
@@ -101,10 +127,13 @@ class HistoryController extends Controller
 
             $data=(array)$data;
 
+
             $subData=\DB::table('patient')
                 ->select('name','gender','nic','addr','phone','dob')
                 ->where('id',History::find($id)->patient_id)
                 ->first();
+
+
 
             $subData=(array)$subData;
 
@@ -116,7 +145,7 @@ class HistoryController extends Controller
                 ->with('title','Record #'.$id)
                 ->with('sub','admin.partials.patient_info')
                 ->with('subData',$subData)
-                ->with('subTitles',$subTitles);
+               ->with('subTitles',$subTitles);
         }
 
 

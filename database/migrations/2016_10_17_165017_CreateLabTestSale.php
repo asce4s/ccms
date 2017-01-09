@@ -18,8 +18,8 @@ class CreateLabTestSale extends Migration
             $table->integer('test_id')->unsigned();
             $table->integer('sale_id')->unsigned();
             $table->timestamps();
-            $table->foreign('test_id')->references('id')->on('labtest');
-            $table->foreign('sale_id')->references('id')->on('sales');
+            $table->foreign('test_id')->references('id')->on('labtest')->onDelete('cascade');
+            $table->foreign('sale_id')->references('id')->on('sales')->onDelete('cascade');
 
 
         });

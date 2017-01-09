@@ -20,7 +20,7 @@ class CreateScheduleTable extends Migration
             $table->string('fromTime');
             $table->string('toTime');
             $table->text('description');
-            $table->foreign('doc_id')->references('id')->on('doctor');
+            $table->foreign('doc_id')->references('id')->on('doctor')->onDelete('cascade');
             $table->timestamps();
 
         });

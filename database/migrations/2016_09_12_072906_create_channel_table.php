@@ -20,8 +20,8 @@ class CreateChannelTable extends Migration
             $table->date('date');
             $table->integer('token');
             $table->integer('saleId');
-            $table->foreign('patient_id')->references('id')->on('patient');
-            $table->foreign('schedule_id')->references('id')->on('schedule');
+            $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade');
+            $table->foreign('schedule_id')->references('id')->on('schedule')->onDelete('cascade');
             $table->timestamps();
 
         });

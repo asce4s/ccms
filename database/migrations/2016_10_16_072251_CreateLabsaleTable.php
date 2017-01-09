@@ -19,8 +19,8 @@ class CreateLabsaleTable extends Migration
             $table->integer('qty');
             $table->integer('sale_id')->unsigned();
             $table->timestamps();
-            $table->foreign('item_id')->references('id')->on('labitems');
-            $table->foreign('sale_id')->references('id')->on('sales');
+            $table->foreign('item_id')->references('id')->on('labitems')->onDelete('cascade');
+            $table->foreign('sale_id')->references('id')->on('sales')->onDelete('cascade');
 
 
         });

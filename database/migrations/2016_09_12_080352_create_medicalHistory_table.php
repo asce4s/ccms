@@ -20,8 +20,8 @@ class CreateMedicalHistoryTable extends Migration
             $table->date('date');
             $table->text('prescription');
             $table->text('note')->nullable();
-            $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade');
-            $table->foreign('doc_id')->references('id')->on('doctor');
+            $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade')->onDelete('cascade');
+            $table->foreign('doc_id')->references('id')->on('doctor')->onDelete('cascade');
             $table->timestamps();
         });
     }

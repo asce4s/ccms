@@ -26,7 +26,7 @@ class CreateEmployeeTable extends Migration
         });
 
         Schema::table('users', function ($table) {
-            $table->foreign('emp_id')->references('id')->on('employee');
+            $table->foreign('emp_id')->references('id')->on('employee')->onDelete('cascade');
         });
     }
 

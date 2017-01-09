@@ -6,6 +6,25 @@
         .text-right {
             width: 300px;
         }
+
+        #js-legend{
+            position: absolute;
+            top: 80px;
+        }
+        .chart-legend li span{
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin-right: 5px;
+
+        }
+
+        .doughnut-legend{list-style: none}
+
+        .chart {
+            padding-top: 57px;
+            padding-bottom: 60px;
+        }
     </style>
 @stop
 @section('scripts')
@@ -63,8 +82,9 @@
             };
             //Create pie or douhnut chart
             // You can switch between pie and douhnut using the method below.
-            pieChart.Doughnut(PieData, pieOptions);
-            pieChart.pie
+            var myChart=pieChart.Doughnut(PieData, pieOptions);
+            document.getElementById('js-legend').innerHTML = myChart.generateLegend();
+
         })
     </script>
 @stop
@@ -139,7 +159,9 @@
                     </table>
 
                     <div class="chart">
+                        <div id="js-legend" class="chart-legend"></div>
                         <canvas id="pieChart" style="height:230px"></canvas>
+
                     </div>
 
 

@@ -66,7 +66,7 @@
                         <button type="submit" class="btn btn-primary" ng-click="update()" ng-if="show">Update
                         </button>
                         <button type="submit" class="btn btn-primary" ng-click="delete()" ng-if="show"
-                                confirm="Are you sure ?" confirm-settings="{size: 'sm',ok:'Yes'}">Delete
+                                confirm="This will also delete all the user accounts associated. Are you sure ?" confirm-settings="{size: 'sm',ok:'Yes'}">Delete
                         </button>
                         <button type="reset" class="btn btn-primary" ng-click="show = false">Reset</button>
                     </div>

@@ -19,7 +19,7 @@ class CreateBookingTable extends Migration
             $table->integer('schedule_id')->unsigned();
             $table->string('phone');
             $table->date('date');
-            $table->foreign('schedule_id')->references('id')->on('schedule');
+            $table->foreign('schedule_id')->references('id')->on('schedule')->onDelete('cascade');
             $table->timestamps();
 
 

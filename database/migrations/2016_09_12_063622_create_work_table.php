@@ -13,16 +13,16 @@ class CreateWorkTable extends Migration
      */
     public function up()
     {
-        Schema::create('work',function (Blueprint $table){
+        /*Schema::create('work',function (Blueprint $table){
             $table->increments('id');
             $table->date('date');
             $table->time('time');
             $table->integer('emp_id')->unsigned();
-            $table->foreign('emp_id')->references('id')->on('employee');
+            $table->foreign('emp_id')->references('id')->on('employee')->onDelete('cascade');
             $table->timestamps();
 
 
-        });
+        });*/
     }
 
     /**
@@ -32,6 +32,6 @@ class CreateWorkTable extends Migration
      */
     public function down()
     {
-        Schema::drop('work');
+      //  Schema::drop('work');
     }
 }

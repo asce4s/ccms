@@ -84,7 +84,7 @@ class DrugController extends Controller
         else if($id=='all'){
             $data = \DB::table('drug')
                 ->join('brand', 'drug.brand_id', '=', 'brand.id')
-                ->select('drug.itemcode', 'drug.name','description','brand.name','price','qty','drug.id')
+                ->select('drug.itemcode', 'drug.name as name','description','price','qty','drug.id')
                 ->get();
             $cols=array("ID","Name","Description","Price","quantity");
 

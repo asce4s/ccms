@@ -94,7 +94,7 @@ class PatientController extends Controller
                 ->first();
             $cols=array("ID","Name","Gender","NIC","Phone","Address");
 
-            return view('admin.singleview')
+            return view('admin.singlePatientView')
                 ->with('data',(array)$data)
                 ->with('cols',$cols)
                 ->with('title','Patient #'.$id);

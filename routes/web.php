@@ -48,7 +48,7 @@ Route::get('notification/all','NotificationController@getData');
 Auth::routes();
 
 Route::get('/admin', function (){
-    return view('admin.master');
+    return view('admin.welcome');
 })->middleware('auth');
 
 Route::post('/login', 'Auth\LoginController@login');

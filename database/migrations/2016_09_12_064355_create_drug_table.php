@@ -19,7 +19,7 @@ class CreateDrugTable extends Migration
             $table->float('price');
             $table->text('description')->nullable();
             $table->integer('brand_id')->unsigned();
-            $table->foreign('brand_id')->references('id')->on('brand');
+            $table->foreign('brand_id')->references('id')->on('brand')->onDelete('cascade');
             $table->timestamps();
         });
     }

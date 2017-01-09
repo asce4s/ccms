@@ -59,6 +59,7 @@ class BookingController extends Controller
     {
 
 
+
         $token = \DB::table('booking')
             ->select(DB::raw(' max(token) as mx'))
             ->where("schedule_id", '=', $request->get('schedule_id'))

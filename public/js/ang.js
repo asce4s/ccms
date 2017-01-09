@@ -144,7 +144,12 @@ app.controller('masterController',function ($scope, $http,DTOptionsBuilder, DTCo
     }
 
 
+    $scope.export=function () {
 
+
+        angular.element("#statTable").tableExport({type:'excel',escape:'false',ignoreColumn:'[3]'});
+        return false;
+    }
 
      $interval(function() {
          if($scope.status.stat){

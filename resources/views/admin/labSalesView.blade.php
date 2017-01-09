@@ -14,6 +14,8 @@
     <script src="{{ URL::asset('plugins/datepicker/bootstrap-datepicker.js') }}"></script>
     <script src="{{ URL::asset('plugins/input-mask/jquery.inputmask.js') }}"></script>
 
+    <script src="{{ URL::asset('js/jquery.base64.js') }}"></script>
+    <script src="{{ URL::asset('js/tableExport.js') }}"></script>
 
 
 
@@ -70,13 +72,16 @@
                             <button type="submit" class="btn btn-primary" style="margin-top: 24px;">View</button>
 
                         </div>
+                        <div class="col-md-3">
+                            <button ng-click="export()" class="btn btn-default" style="float: right;    margin-top: 20px;">Download Report </button>
+                        </div>
                     </form>
 
 
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table datatable class="table table-bordered table-striped">
+                    <table datatable class="table table-bordered table-striped"  id="statTable">
                         <thead>
                         <tr>
                             <th>#ID</th>
@@ -240,6 +245,14 @@
             $scope.print=function () {
                 window.print();
             }
+            $scope.export=function () {
+
+
+                angular.element("#statTable").tableExport({type:'excel',escape:'false',ignoreColumn:'[3]'});
+                return false;
+            }
+
+
 
         });
 

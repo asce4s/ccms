@@ -21,7 +21,7 @@ class CreateDoctorTable extends Migration
             $table->string('phone');
             $table->string('email')->nullable();
             $table->timestamps();
-            $table->foreign('emp_id')->references('id')->on('employee');
+            $table->foreign('emp_id')->references('id')->on('employee')->onDelete('cascade');
 
         });
 

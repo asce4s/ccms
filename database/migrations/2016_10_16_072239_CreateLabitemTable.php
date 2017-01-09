@@ -19,7 +19,7 @@ class CreateLabitemTable extends Migration
             $table->integer('qty');
             $table->float('price');
             $table->integer('brand_id')->unsigned();
-            $table->foreign('brand_id')->references('id')->on('brand');
+            $table->foreign('brand_id')->references('id')->on('brand')->onDelete('cascade');
             $table->timestamps();
         });
     }

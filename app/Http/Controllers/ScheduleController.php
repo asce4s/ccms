@@ -105,6 +105,16 @@ class ScheduleController extends Controller
                 ->with('title','View Patients');
         }
 
+        if($id='dc'){
+            $data = \DB::table('schedule')
+                ->select('id','weekday','fromTime','toTime')
+                ->where('doc_id','=',$_GET['id'])
+                ->get();
+
+
+            return json_encode($data);
+        }
+
     }
 
     /**

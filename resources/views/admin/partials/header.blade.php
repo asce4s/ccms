@@ -52,7 +52,7 @@ $user = Auth::user();
 
                             </ul>
                         </li>
-                        <li class="footer"><a href="#">View all</a></li>
+
                     </ul>
                 </li>
 
@@ -93,22 +93,23 @@ $user = Auth::user();
 
 
         @if($user->hasRole('phm'))
-            <?php $url=url('notification/drug') ?>
+            <?php $urlx=url('notification/drug') ?>
         @endif
 
         @if($user->hasRole('lab'))
-            <?php $url=url('notification/item') ?>
+            <?php $urlx=url('notification/item') ?>
         @endif
 
         @if($user->hasRole('admin'))
-             <?php $url=url('notification/all') ?>
+             <?php $urlx=url('notification/all') ?>
         @endif
 
 
 
+@if(isset($urlx))
         $http({
             method: "GET",
-            url: "{{$url}}",
+            url: "{{$urlx}}",
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
             console.log(response.data);
@@ -117,7 +118,9 @@ $user = Auth::user();
             $("body").html(response.data);
 
         });
-
+        @endif
 
     })
+
+
 </script>
